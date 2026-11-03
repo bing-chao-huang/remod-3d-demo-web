@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <style>
     html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b0e12}
-    model-viewer{display:block;width:100%;height:100%;background:radial-gradient(circle at 50% 42%,#29303a 0%,#171c22 38%,#0b0e12 77%);--progress-bar-color:#d8ff5f;outline:none;touch-action:none;transition:height 480ms cubic-bezier(.65,0,.35,1)}
+    model-viewer{display:block;width:100%;height:100%;background:radial-gradient(circle at 50% 42%,#29303a 0%,#171c22 38%,#0b0e12 77%);--progress-bar-color:#d8ff5f;outline:none;touch-action:none;transition:height 560ms cubic-bezier(.65,0,.35,1)}
   </style>
   <script type="module" src="./model-viewer.min.js"></script>
 </head>
@@ -20,7 +20,7 @@
     const allowed = ['01_h31.glb','02_h31.glb','03_h31.glb','04_h31.glb'];
     const viewer = document.getElementById('car');
     window.setCardExpanded = (expanded) => {
-      viewer.style.height = expanded ? '64%' : '100%';
+      viewer.style.height = expanded ? '74%' : '100%';
     };
     window.resetView = () => {
       viewer.autoRotate = false;
