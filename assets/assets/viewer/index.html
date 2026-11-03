@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <style>
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b0e12}
+    model-viewer{display:block;width:100%;height:100%;background:radial-gradient(circle at 50% 42%,#29303a 0%,#171c22 38%,#0b0e12 77%);--progress-bar-color:#d8ff5f;outline:none;touch-action:none}
+  </style>
+  <script type="module" src="./model-viewer.min.js"></script>
+</head>
+<body>
+  <model-viewer id="car" camera-controls auto-rotate auto-rotate-delay="2500"
+    rotation-per-second="8deg" shadow-intensity="1" shadow-softness="0.9"
+    exposure="1.2" interaction-prompt="none" disable-pan
+    camera-orbit="35deg 72deg auto" min-camera-orbit="auto 25deg auto"
+    max-camera-orbit="auto 145deg auto" alt="汽车 3D 模型"></model-viewer>
+  <script>
+    const model = new URLSearchParams(location.search).get('model');
+    const allowed = ['01_h31.glb','02_h31.glb','03_h31.glb','04_h31.glb'];
+    const viewer = document.getElementById('car');
+    window.resetView = () => {
+      viewer.autoRotate = false;
+      viewer.setAttribute('camera-orbit', '35deg 72deg auto');
+      viewer.setAttribute('camera-target', 'auto auto auto');
+      viewer.setAttribute('field-of-view', 'auto');
+      viewer.jumpCameraToGoal();
+    };
+    window.addEventListener('message', (event) => {
+      if (event.origin === location.origin && event.data === 'reset-view') {
+        window.resetView();
+      }
+    });
+    if (allowed.includes(model)) viewer.src = '../cars/' + model;
+    else window.ViewerStatus?.postMessage('error:invalid-model');
+    viewer.addEventListener('load', () => window.ViewerStatus?.postMessage('ready'));
+    viewer.addEventListener('error', () => window.ViewerStatus?.postMessage('error:model-load'));
+  </script>
+</body>
+</html>
